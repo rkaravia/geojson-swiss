@@ -11,7 +11,7 @@ const map = initMap(defaultBaseLayer);
 const layerControl = initLayerControl(baseLayers);
 map.addControl(layerControl);
 if (options.trackUrl) {
-    getTrack(options.trackUrl).then((track) => {
-        addTrack(map, layerControl, track);
-    });
+  getTrack(options.trackUrl).then((track) => {
+    addTrack(map, layerControl, track);
+  });
 }
