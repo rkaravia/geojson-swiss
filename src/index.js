@@ -2,16 +2,18 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet.elevation/dist/Leaflet.Elevation-0.0.2.css';
 import './style.css';
 
-import { getOptions, getBaseLayers, initMap, initLayerControl, getTrack, addTrack } from './lib';
+import * as lib from './lib';
 
-const options = getOptions();
-const baseLayers = getBaseLayers();
+const options = lib.getOptions();
+const baseLayers = lib.getBaseLayers();
 const defaultBaseLayer = baseLayers['Gray map'];
-const map = initMap(defaultBaseLayer);
-const layerControl = initLayerControl(baseLayers);
+const map = lib.initMap(defaultBaseLayer);
+const layerControl = lib.initLayerControl(baseLayers);
 map.addControl(layerControl);
 if (options.trackUrl) {
-  getTrack(options.trackUrl).then((track) => {
-    addTrack(map, layerControl, track);
+  lib.getTrack(options.trackUrl).then((track) => {
+    lib.addTrack(map, layerControl, track);
   });
+} else {
+  lib.setDefaultView(map);
 }

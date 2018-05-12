@@ -1,5 +1,5 @@
-import { Browser, Control, geoJson, Map } from 'leaflet';
-import Swiss, { crs, latLngBounds } from 'leaflet-tilelayer-swiss';
+import { Browser, Control, geoJson, Map, Point } from 'leaflet';
+import Swiss, { EPSG_2056 as crs, latLngBounds, unproject_2056 as unproject } from 'leaflet-tilelayer-swiss';
 import 'd3';
 import 'leaflet.elevation/src/L.Control.Elevation';
 
@@ -81,4 +81,8 @@ export function addTrack(map, layerControl, track) {
   layerControl.addOverlay(track, 'Track');
   const elevation = initElevationControl(track);
   addElevationControl(map, elevation);
+}
+
+export function setDefaultView(map) {
+  map.setView(unproject(new Point(2600000, 1200000)), 16);
 }
