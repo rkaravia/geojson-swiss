@@ -15,5 +15,5 @@ if (options.trackUrl) {
     lib.addTrack(map, layerControl, track);
   });
 } else {
-  lib.setDefaultView(map);
+  lib.setDefaultView(map, defaultBaseLayer);
 }

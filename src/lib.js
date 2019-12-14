@@ -1,7 +1,7 @@
 import {
-  Browser, Control, geoJson, Map, Point,
+  Browser, Control, CRS, geoJson, Map, Point,
 } from 'leaflet';
-import Swiss, { EPSG_2056 as crs, latLngBounds, unproject_2056 as unproject } from 'leaflet-tilelayer-swiss';
+import SwissLayer from 'leaflet-tilelayer-swiss';
 import 'd3';
 import 'leaflet.elevation/src/L.Control.Elevation';
 
@@ -15,14 +15,14 @@ export function getOptions() {
 
 export function getBaseLayers() {
   return {
-    'Gray map': new Swiss({
+    'Gray map': new SwissLayer({
       layer: 'ch.swisstopo.pixelkarte-grau',
       opacity: 0.5,
     }),
-    'Color map': new Swiss({
+    'Color map': new SwissLayer({
       opacity: 0.5,
     }),
-    'Aerial imagery': new Swiss({
+    'Aerial imagery': new SwissLayer({
       layer: 'ch.swisstopo.swissimage',
       maxZoom: 28,
       opacity: 0.5,
@@ -35,9 +35,9 @@ export function initMap(defaultBaseLayer) {
   window.document.body.appendChild(container);
 
   return new Map(container, {
-    crs,
+    crs: CRS.EPSG2056,
     layers: [defaultBaseLayer],
-    maxBounds: latLngBounds,
+    maxBounds: defaultBaseLayer.options.maxBounds,
   });
 }
 
@@ -85,6 +85,6 @@ export function addTrack(map, layerControl, track) {
   addElevationControl(map, elevation);
 }
 
-export function setDefaultView(map) {
-  map.setView(unproject(new Point(2600000, 1200000)), 16);
+export function setDefaultView(map, layer) {
+  map.fitBounds(layer.options.switzerlandBounds);
 }
