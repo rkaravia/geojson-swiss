@@ -1,4 +1,6 @@
-import { Browser, Control, geoJson, Map, Point } from 'leaflet';
+import {
+  Browser, Control, geoJson, Map, Point,
+} from 'leaflet';
 import Swiss, { EPSG_2056 as crs, latLngBounds, unproject_2056 as unproject } from 'leaflet-tilelayer-swiss';
 import 'd3';
 import 'leaflet.elevation/src/L.Control.Elevation';
@@ -44,7 +46,7 @@ export function initLayerControl(baseLayers) {
 }
 
 export function getTrack(url) {
-  return fetch(url).then(response => response.json()).then((features) => {
+  return fetch(url).then((response) => response.json()).then((features) => {
     const track = geoJson(features, {
       style: () => ({
         color: '#4682b4',
